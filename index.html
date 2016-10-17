@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Simple Load File</title>
+
+    <link rel="stylesheet" href="">
+  </head>
+  <body>
+    <h1>Simple Load File</h1>
+
+    <p>Load <a target="_blank" href="example.json">JSON file</a> from HTTP server without Promise using a timeout.</p>
+
+    USAGE:
+    <pre id="usage"></pre>
+
+    RESULT:
+    <pre id="result"></pre>
+
+    <script>
+      function loadFile(url, timeout, callback) {
+        var xhr = new XMLHttpRequest();
+        if (callback) {
+          xhr.onload = function(e) {
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                callback(xhr.response, 0);
+                return;
+              }
+            }
+            callback(xhr.response, -2);
+          };
+          xhr.onerror = function(e) {
+            callback(null, -1);
+          };
+          xhr.ontimeout = function() {
+            callback(null, -3);
+          };
+        }
+        xhr.open('GET', url, true);
+        xhr.timeout = timeout;
+        xhr.send(null);
+      }
+    </script>
+
+    <script id="usageScript">
+      loadFile('example.json', 2000, showText);
+
+      function showText(data, errorCode) {
+        if (data && !errorCode) {
+          document.getElementById('result').innerHTML = data;
+        }
+      }
+    </script>
+
+    <script>
+      document.getElementById('usage').innerHTML = document.getElementById('usageScript').innerText;
+    </script>
+
+  </body>
+</html>
