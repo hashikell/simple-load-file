@@ -11,7 +11,11 @@
   <body>
     <h1>Simple Load File</h1>
 
-    <p>Load <a target="_blank" href="example.json">JSON file</a> from HTTP server without Promise using a timeout.</p>
+    <p>Load <a target="_blank" href="example.json">JSON file</a> from HTTP server without Promise using a timeout.
+    <a href="https://github.com/hashikell/simple-load-file/">View on GitHub</a></p>
+
+    SOURCE CODE:
+    <pre id="sourceCode"></pre>
 
     USAGE:
     <pre id="usage"></pre>
@@ -19,7 +23,7 @@
     RESULT:
     <pre id="result"></pre>
 
-    <script>
+    <script id="sourceCodeImplement">
       function loadFile(url, timeout, callback) {
         var xhr = new XMLHttpRequest();
         if (callback) {
@@ -56,6 +60,7 @@
     </script>
 
     <script>
+      document.getElementById('sourceCode').innerHTML = document.getElementById('sourceCodeImplement').innerText;
       document.getElementById('usage').innerHTML = document.getElementById('usageScript').innerText;
     </script>
 
